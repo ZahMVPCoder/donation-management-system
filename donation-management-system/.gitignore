@@ -1,0 +1,8 @@
+node_modules
+.next
+.env.local
+.env
+donation-management-system/node_modules
+donation-management-system/.next
+*.log
+.DS_Store

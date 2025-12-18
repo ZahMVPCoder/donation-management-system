@@ -4,7 +4,7 @@
   "description": "A comprehensive donation management system with Next.js, Prisma, and React",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "prisma:generate": "prisma generate",
