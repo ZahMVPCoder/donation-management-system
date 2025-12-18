@@ -1,0 +1,29 @@
+{
+  "name": "api-route-labs",
+  "version": "1.0.0",
+  "description": "A hands-on learning project for building Next.js API routes with Prisma ORM.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cd donation-management-system && next dev",
+    "build": "cd donation-management-system && next build",
+    "start": "cd donation-management-system && next start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:generate": "cd donation-management-system && prisma generate",
+    "prisma:migrate": "cd donation-management-system && prisma migrate dev",
+    "prisma:seed": "cd donation-management-system && node prisma/seed.js",
+    "prisma:studio": "cd donation-management-system && prisma studio",
+    "prisma:push": "cd donation-management-system && prisma db push"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "@prisma/client": "^5.0.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.0.0"
+  }
+}

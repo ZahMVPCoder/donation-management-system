@@ -1,0 +1,152 @@
+.container {
+  max-width: 1200px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.searchSection {
+  margin-bottom: 2rem;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+}
+
+.tableWrapper {
+  overflow-x: auto;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+}
+
+.donorTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.donorTable thead {
+  background-color: #34495e;
+  color: white;
+}
+
+.donorTable th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.donorTable td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.donorTable tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.donorLink {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.donorLink:hover {
+  text-decoration: underline;
+}
+
+.actionLink {
+  color: #3498db;
+  text-decoration: none;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #3498db;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.actionLink:hover {
+  background-color: #3498db;
+  color: white;
+}
+
+.badgeActive {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.badgeLapsed {
+  background-color: #fff3cd;
+  color: #856404;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.badgeNew {
+  background-color: #cfe2ff;
+  color: #084298;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.badgeInactive {
+  background-color: #e2e3e5;
+  color: #383d41;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.pagination span {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .donorTable {
+    font-size: 0.9rem;
+  }
+
+  .donorTable th,
+  .donorTable td {
+    padding: 0.75rem;
+  }
+}

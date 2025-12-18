@@ -1,0 +1,102 @@
+.splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #27AE60 0%, #16A34A 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: opacity 0.5s ease-out;
+}
+
+.splashScreen.fadeOut {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.content {
+  text-align: center;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.emoji {
+  font-size: 4rem;
+  animation: wobble 0.8s ease-in-out;
+}
+
+@keyframes wobble {
+  0% {
+    transform: scale(0) rotate(-10deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) rotate(5deg);
+  }
+  75% {
+    transform: scale(0.95) rotate(-2deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.name {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  letter-spacing: 2px;
+  animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.tagline {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0;
+  letter-spacing: 0.5px;
+  animation: typewriter 2s steps(35, end) forwards, blink 0.7s infinite;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid white;
+  padding-right: 0.5rem;
+}
+
+@keyframes typewriter {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+  0%, 49% {
+    border-right-color: white;
+  }
+  50%, 100% {
+    border-right-color: transparent;
+  }
+}

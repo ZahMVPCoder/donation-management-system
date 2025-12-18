@@ -1,0 +1,286 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 0;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 1rem;
+  margin: 0.5rem 0 0 0;
+}
+
+/* Stats Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.statCard {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: #718096;
+  margin-bottom: 0.5rem;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.statIcon {
+  font-size: 2rem;
+  color: #cbd5e0;
+}
+
+/* Controls Section */
+.controlsSection {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.filterButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filterBtn {
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  color: #4b5563;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.filterBtn:hover {
+  background-color: #f9fafb;
+}
+
+.filterBtn.active {
+  background-color: #27AE60;
+  color: white;
+  border-color: #27AE60;
+}
+
+.sortSection {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sortSection label {
+  color: #4b5563;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.sortSelect {
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: white;
+  color: #1a202c;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Tasks List */
+.tasksList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.taskItem {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.2s;
+}
+
+.taskItem:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.taskItem.completed {
+  background-color: #f9fafb;
+  opacity: 0.7;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.taskContent {
+  flex: 1;
+}
+
+.taskTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a202c;
+  margin-bottom: 0.5rem;
+}
+
+.taskItem.completed .taskTitle {
+  text-decoration: line-through;
+  color: #9ca3af;
+}
+
+.taskMeta {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.875rem;
+}
+
+.dueDate {
+  color: #718096;
+}
+
+.taskType {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.type_thank_you {
+  background-color: #dbeafe;
+  color: #0c4a6e;
+}
+
+.type_follow_up {
+  background-color: #e9d5ff;
+  color: #6b21a8;
+}
+
+.type_renewal {
+  background-color: #fecaca;
+  color: #7c2d12;
+}
+
+.type_check_in {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.type_outreach {
+  background-color: #fed7aa;
+  color: #92400e;
+}
+
+.type_other {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.taskRight {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-shrink: 0;
+}
+
+.priority {
+  display: inline-block;
+  padding: 0.375rem 0;
+  font-weight: 700;
+  font-size: 0.875rem;
+  min-width: 70px;
+  text-align: right;
+}
+
+.priority_high {
+  color: #dc2626;
+  font-size: 1.25rem;
+}
+
+.priority_medium {
+  color: #f59e0b;
+  font-size: 1.25rem;
+}
+
+.priority_low {
+  color: #10b981;
+  font-size: 1.25rem;
+}
+
+.viewLink {
+  color: #27AE60;
+  text-decoration: none;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+
+.viewLink:hover {
+  color: #1F8449;
+  text-decoration: underline;
+}
+
+.emptyMessage {
+  text-align: center;
+  color: #718096;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .controlsSection {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .taskItem {
+    flex-wrap: wrap;
+  }
+
+  .taskRight {
+    width: 100%;
+    margin-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+    justify-content: space-between;
+  }
+}

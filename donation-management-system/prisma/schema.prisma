@@ -1,0 +1,109 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Donor {
+  id                     String   @id @default(cuid())
+  firstName              String
+  lastName               String
+  email                  String   @unique
+  phone                  String?
+  streetAddress          String?
+  city                   String?
+  state                  String?
+  zipCode                String?
+  preferredContactMethod String? // "email", "phone", "mail"
+  notes                  String?
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+
+  donations Donation[]
+  tasks     Task[]
+}
+
+model Donation {
+  id                 String   @id @default(cuid())
+  donorId            String
+  donor              Donor    @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  amount             Float
+  date               DateTime
+  method             String // "check", "cash", "credit_card", "bank_transfer", "wire_transfer"
+  isRecurring        Boolean  @default(false)
+  recurringFrequency String? // "monthly", "quarterly", "semi-annually", "annually"
+  notes              String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  campaigns CampaignDonation[]
+  tasks     Task[]
+}
+
+model Campaign {
+  id             String   @id @default(cuid())
+  name           String
+  description    String?
+  status         String   @default("active") // "active", "completed", "paused", "planned"
+  goalAmount     Float
+  startDate      DateTime
+  endDate        DateTime
+  campaignLeadId String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  donations CampaignDonation[]
+}
+
+model CampaignDonation {
+  id         String   @id @default(cuid())
+  campaignId String
+  campaign   Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+  donationId String
+  donation   Donation @relation(fields: [donationId], references: [id], onDelete: Cascade)
+  amount     Float
+
+  @@unique([campaignId, donationId])
+}
+
+model Task {
+  id               String    @id @default(cuid())
+  title            String
+  taskType         String // "thank-you", "follow-up", "check-in", "event", "renewal", "grant", "other"
+  donorId          String?
+  donor            Donor?    @relation(fields: [donorId], references: [id], onDelete: Cascade)
+  donationId       String?
+  donation         Donation? @relation(fields: [donationId], references: [id], onDelete: Cascade)
+  dueDate          DateTime
+  status           String    @default("open") // "open", "in-progress", "completed"
+  description      String?
+  assignedToUserId String?
+  createdAt        DateTime  @default(now())
+  createdById      String?
+  completedAt      DateTime?
+  completedById    String?
+  updatedAt        DateTime  @updatedAt
+}
+
+model Goal {
+  id          String   @id @default(cuid())
+  monthlyGoal Float    @default(0)
+  annualGoal  Float    @default(0)
+  year        Int
+  month       Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
