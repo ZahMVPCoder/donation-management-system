@@ -8,7 +8,7 @@ import styles from './page.module.css'
 
 export default function LoginPage() {
   const router = useRouter()
-  const [showSplash, setShowSplash] = useState(true)
+  const [showSplash, setShowSplash] = useState(false)
 
   useEffect(() => {
     const checkUser = async () => {
@@ -18,11 +18,19 @@ export default function LoginPage() {
           return
         }
 
-        const user = await fetch('/api/auth/me', {
+        // Add timeout to fetch request
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+
+        const response = await fetch('/api/auth/me', {
           headers: {
             'Authorization': `Bearer ${token}`
-          }
-        }).then(res => res.json())
+          },
+          signal: controller.signal
+        })
+        clearTimeout(timeoutId)
+
+        const user = await response.json()
         
         if (user && user.id) {
           // User is already logged in, redirect to dashboard
