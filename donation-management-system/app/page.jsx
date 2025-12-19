@@ -1,14 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import SplashScreen from './components/SplashScreen'
 import styles from './page.module.css'
 
 export default function LoginPage() {
   const router = useRouter()
-  const [showSplash, setShowSplash] = useState(true)
 
   useEffect(() => {
     const checkUser = async () => {
@@ -50,7 +48,6 @@ export default function LoginPage() {
 
   return (
     <>
-      {showSplash && <SplashScreen onComplete={() => setShowSplash(false)} />}
       
       <div className={styles.container}>
       <section className={styles.hero}>
