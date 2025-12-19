@@ -19,16 +19,22 @@ export default function LoginPage() {
         }
 
         const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 5000)
+        const timeoutId = setTimeout(() => controller.abort(), 3000)
 
-        const user = await fetch('/api/auth/me', {
+        const response = await fetch('/api/auth/me', {
           headers: {
             'Authorization': `Bearer ${token}`
           },
           signal: controller.signal
-        }).then(res => res.json())
+        })
         
         clearTimeout(timeoutId)
+        
+        if (!response.ok) {
+          return
+        }
+
+        const user = await response.json()
         
         if (user && user.id) {
           // User is already logged in, redirect to dashboard
