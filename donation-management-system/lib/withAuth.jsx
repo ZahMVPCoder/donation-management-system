@@ -23,29 +23,49 @@ export function withAuth(Component) {
 
           if (!token) {
             // No token, redirect to login
+            setIsLoading(false)
             router.push('/auth/login')
             return
           }
 
-          // Verify token with server
-          const response = await fetch('/api/auth/me', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
+          // Set timeout to prevent infinite loading
+          const controller = new AbortController()
+          const timeoutId = setTimeout(() => controller.abort(), 5000)
 
-          if (response.ok) {
-            const userData = await response.json()
-            setUser(userData)
-            setIsAuthorized(true)
-          } else {
-            // Token invalid, clear it and redirect to login
+          try {
+            // Verify token with server
+            const response = await fetch('/api/auth/me', {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              signal: controller.signal,
+            })
+
+            clearTimeout(timeoutId)
+
+            if (response.ok) {
+              const userData = await response.json()
+              setUser(userData)
+              setIsAuthorized(true)
+            } else {
+              // Token invalid, clear it and redirect to login
+              console.warn('Auth verification failed:', response.status)
+              localStorage.removeItem('token')
+              setIsLoading(false)
+              router.push('/auth/login')
+            }
+          } catch (fetchError) {
+            clearTimeout(timeoutId)
+            console.error('Fetch error during auth check:', fetchError.message)
+            // On timeout or fetch error, assume not authenticated
             localStorage.removeItem('token')
+            setIsLoading(false)
             router.push('/auth/login')
           }
         } catch (error) {
           console.error('Auth check failed:', error)
           localStorage.removeItem('token')
+          setIsLoading(false)
           router.push('/auth/login')
         } finally {
           setIsLoading(false)
