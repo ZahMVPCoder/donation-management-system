@@ -9,12 +9,8 @@ export default function LoginPage() {
   const router = useRouter()
 
   useEffect(() => {
-    // If user has a token, redirect to dashboard
-    // Otherwise, stay on landing page
-    const token = localStorage.getItem('token')
-    if (token) {
-      router.push('/dashboard')
-    }
+    // Always redirect to signup
+    router.push('/auth/signup')
   }, [router])
 
   return (
