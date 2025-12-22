@@ -20,19 +20,44 @@ export async function GET(request) {
     }
 
     // Verify token
-    const decoded = jwt.verify(token, JWT_SECRET)
+    let decoded
+    try {
+      decoded = jwt.verify(token, JWT_SECRET)
+    } catch (tokenError) {
+      console.error('Token verification failed:', tokenError.message)
+      return NextResponse.json(
+        { error: 'Invalid token' },
+        { status: 401 }
+      )
+    }
 
-    // Get user from database
-    const user = await prisma.user.findUnique({
-      where: { id: decoded.id },
-      select: {
-        id: true,
-        firstName: true,
-        lastName: true,
-        email: true,
-        createdAt: true,
-      },
-    })
+    // Get user from database with timeout
+    let user
+    try {
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Database query timeout')), 8000)
+      )
+
+      user = await Promise.race([
+        prisma.user.findUnique({
+          where: { id: decoded.id },
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            createdAt: true,
+          },
+        }),
+        timeoutPromise,
+      ])
+    } catch (dbError) {
+      console.error('Database error:', dbError.message)
+      return NextResponse.json(
+        { error: 'Database connection error', details: dbError.message },
+        { status: 503 }
+      )
+    }
 
     if (!user) {
       return NextResponse.json(
@@ -50,7 +75,7 @@ export async function GET(request) {
       )
     }
     
-    console.error('Auth check error:', error)
+    console.error('Auth check error:', error.message)
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
