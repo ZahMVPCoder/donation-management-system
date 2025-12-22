@@ -13,11 +13,16 @@ export default function LoginPage() {
       try {
         const token = localStorage.getItem('token')
         if (!token) {
+          console.log('[Auth] No token found, staying on login page')
           return
         }
 
+        console.log('[Auth] Token found, checking with /api/auth/me...')
         const controller = new AbortController()
-        const timeoutId = setTimeout(() => controller.abort(), 3000)
+        const timeoutId = setTimeout(() => {
+          console.error('[Auth] Request timeout after 5s')
+          controller.abort()
+        }, 5000)
 
         const response = await fetch('/api/auth/me', {
           headers: {
@@ -27,19 +32,23 @@ export default function LoginPage() {
         })
         
         clearTimeout(timeoutId)
+        console.log('[Auth] Response status:', response.status)
         
         if (!response.ok) {
+          console.warn('[Auth] Auth failed with status:', response.status)
           return
         }
 
         const user = await response.json()
+        console.log('[Auth] User verified:', user?.email)
         
         if (user && user.id) {
           // User is already logged in, redirect to dashboard
+          console.log('[Auth] Redirecting to dashboard...')
           router.push('/dashboard')
         }
       } catch (error) {
-        console.error('Error checking user:', error)
+        console.error('[Auth] Error checking user:', error.message)
       }
     }
 
